@@ -1,0 +1,3 @@
+The term bug to describe defects has been a part of engineering jargon since the 1870
+and predates electronic computers and computer software. it may have originally been used
+in hardware engineering to describe mechanical malfunctions.
