@@ -1,0 +1,132 @@
+#include <iostream>
+#include "BinarySearchTree.h"
+#include "AvlTree.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <chrono>
+#include <vector>
+
+using namespace chrono;
+using namespace std;
+
+
+
+int main() {
+
+    // tree size
+    int size = 5000;
+    int randNum=0;
+
+    // generate a vector of size
+    vector<int> v ;
+    for( int i =0 ; i<size; i++) {
+        randNum = rand();
+        v.push_back(randNum);
+    }
+
+    // creation of the trees
+    BinarySearchTree <int> bst ;
+    AvlTree<int> avlt;
+
+
+    // insert part
+    auto time0 = high_resolution_clock::now();
+    for( int i : v)
+    {
+        bst.insert(i);
+    }
+    auto time1 = high_resolution_clock::now();
+    auto duration1 = duration_cast<milliseconds>(time1 - time0);
+    cout << " -> Binary search tree -- insert " << duration1.count() << " ms ";
+
+
+    auto time3 = high_resolution_clock::now();
+    for(int i : v)
+    {
+        avlt.insert(i);
+    }
+    auto time4 = high_resolution_clock::now();
+    auto duration2 = duration_cast<milliseconds>(time4 - time3);
+    cout << " -> AVL tree  search tree -- insert " << duration2.count() << " ms ";
+    cout<< endl;
+
+    // Search part
+    auto time5 = high_resolution_clock::now();
+
+    for( int i =0 ; i<size; i++)
+    {
+        randNum = rand();
+        bst.contains(randNum);
+    }
+    auto time6 = high_resolution_clock::now();
+    auto duration3 = duration_cast<milliseconds>(time6 - time5);
+    cout << " -> Binary search tree -- search " << duration3.count() << " ms ";
+
+
+    auto time7 = high_resolution_clock::now();
+    for( int i =0 ; i<size; i++) {
+        randNum = rand();
+        avlt.contains(randNum);
+    }
+    auto time8 = high_resolution_clock::now();
+    auto duration4 = duration_cast<milliseconds>(time8 - time7);
+    cout << " -> AVL tree  search tree -- search " << duration4.count() << " ms ";
+    cout<< endl;
+
+
+
+    // clear the tree and dot the insert again
+    bst.makeEmpty();
+    avlt.makeEmpty();
+    // Sort the vector
+    std::sort(v.begin(), v.end());
+
+    // Perform Insert sorted
+    auto time9 = high_resolution_clock::now();
+    for( int i : v)
+    {
+        bst.insert(i);
+    }
+    auto time10 = high_resolution_clock::now();
+    auto duration5 = duration_cast<milliseconds>(time10 - time9);
+    cout << " -> Binary search tree SORTED-- insert " << duration5.count() << " ms ";
+
+
+    auto time11 = high_resolution_clock::now();
+    for( int i : v)
+    {
+        avlt.insert(i);
+    }
+    auto time12 = high_resolution_clock::now();
+    auto duration6 = duration_cast<milliseconds>(time12- time11);
+    cout << " -> AVL tree  search tree SORTED -- insert " << duration6.count() << " ms ";
+    cout<< endl;
+
+    // Perform Search sorted
+    auto time13 = high_resolution_clock::now();
+    for( int i : v)
+    {
+        randNum= rand();
+        bst.contains(randNum);
+    }
+    auto time14 = high_resolution_clock::now();
+    auto duration7 = duration_cast<milliseconds>(time14 - time13);
+    cout << " -> Binary search tree SORTED-- search " << duration7.count() << " ms ";
+
+
+    auto time15 = high_resolution_clock::now();
+    for( int i : v)
+    {
+        randNum= rand();
+        avlt.contains(randNum);
+    }
+    auto time16 = high_resolution_clock::now();
+    auto duration8 = duration_cast<milliseconds>(time16- time15);
+    cout << " -> AVL tree  search tree SORTED -- search " << duration8.count() << " ms ";
+
+
+
+
+
+    return 0;
+}
